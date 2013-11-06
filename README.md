@@ -2,7 +2,7 @@
 
 > Inline file importer with @import command.
 
-**Usage - add `@import "path/to/file";` into any of your files to get it imported/injected into that placeholder.**
+**Syntax - add `@import "path/to/file";` into any of your files to get it imported/injected into that placeholder.**
 
 
 ## Getting Started

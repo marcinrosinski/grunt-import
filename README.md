@@ -1,4 +1,4 @@
-# grunt-import v0.1.3
+# grunt-import v0.1.4
 
 > Inline file importer with @import command.
 
@@ -134,6 +134,7 @@ grunt.event.on('import', function(action, filepath, target) {
 
 ## Release History
 
+ * 2013-11-06   v0.1.4   Readme update
  * 2013-11-06   v0.1.3   Readme update
  * 2013-11-06   v0.1.2   Readme update
  * 2013-11-06   v0.1.1   Readme update

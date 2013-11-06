@@ -1,4 +1,4 @@
-# grunt-import v0.1.0 [![Build Status](https://travis-ci.org/marcinrosinski/grunt-import.png?branch=master)](https://travis-ci.org/marcinrosinski/grunt-import)
+# grunt-import v0.1.0
 
 > Inline file importer with @import command.
 

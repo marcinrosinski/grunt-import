@@ -1,4 +1,4 @@
-# grunt-import v0.1.4
+# grunt-import v0.1.5
 
 > Inline file importer with @import command.
 

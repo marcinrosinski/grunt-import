@@ -26,6 +26,30 @@ module.exports = function(grunt) {
         var footer  = grunt.template.process(options.footer);
         var target  = this.target;
 
+        var explode  = function(delimiter, string, limit) {
+
+          delimiter += '';
+          string += '';
+
+          var s = string.split( delimiter );
+          if ( typeof limit === 'undefined' ) return s;
+
+          // Support for limit
+          if ( limit === 0 ) limit = 1;
+
+          // Positive limit
+          if ( limit > 0 ){
+            if ( limit >= s.length ) return s;
+            return s.slice( 0, limit - 1 ).concat( [ s.slice( limit - 1 ).join( delimiter ) ] );
+          }
+
+          // Negative limit
+          if ( -limit >= s.length ) return [];
+
+          s.splice( s.length + limit );
+          return s;
+        }
+
         var importRecursive = function(filepath)
         {
             var src = grunt.file.read(filepath);
@@ -45,14 +69,14 @@ module.exports = function(grunt) {
                     if(grunt.file.exists(importpath))
                     {
                         var isrc = importRecursive(importpath);
-                        src = src.split(importReg[i]+';').join(isrc);
-                        src = src.split(importReg[i]).join(isrc);
+                        src = explode(importReg[i]+';',src,2).join(isrc);
+                        src = explode(importReg[i],src,2).join(isrc);
                     }
                     else
                     {
                         grunt.log.warn('@import file "' + importpath + '" not found.');
-                        src = src.split(importReg[i]+';').join('');
-                        src = src.split(importReg[i]).join('');
+                        src = explode(importReg[i]+';',src,2).join('');
+                        src = explode(importReg[i],src,2).join('');
                     }
                 }
             }

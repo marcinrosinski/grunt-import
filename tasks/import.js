@@ -26,37 +26,60 @@ module.exports = function(grunt) {
         var footer  = grunt.template.process(options.footer);
         var target  = this.target;
 
-        var explode  = function(delimiter, string, limit) {
+        var array_unique = function(inputArr) 
+        {
+          // http://kevin.vanzonneveld.net
+          // +   original by: Carlos R. L. Rodrigues (http://www.jsfromhell.com)
+          // +      input by: duncan
+          // +   bugfixed by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
+          // +   bugfixed by: Nate
+          // +      input by: Brett Zamir (http://brett-zamir.me)
+          // +   bugfixed by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
+          // +   improved by: Michael Grier
+          // +   bugfixed by: Brett Zamir (http://brett-zamir.me)
+          // %          note 1: The second argument, sort_flags is not implemented;
+          // %          note 1: also should be sorted (asort?) first according to docs
+          // *     example 1: array_unique(['Kevin','Kevin','van','Zonneveld','Kevin']);
+          // *     returns 1: {0: 'Kevin', 2: 'van', 3: 'Zonneveld'}
+          // *     example 2: array_unique({'a': 'green', 0: 'red', 'b': 'green', 1: 'blue', 2: 'red'});
+          // *     returns 2: {a: 'green', 0: 'red', 1: 'blue'}
+          var key = '',
+            tmp_arr2 = {},
+            val = '';
 
-          delimiter += '';
-          string += '';
+          var __array_search = function (needle, haystack) {
+            var fkey = '';
+            for (fkey in haystack) {
+              if (haystack.hasOwnProperty(fkey)) {
+                if ((haystack[fkey] + '') === (needle + '')) {
+                  return fkey;
+                }
+              }
+            }
+            return false;
+          };
 
-          var s = string.split( delimiter );
-          if ( typeof limit === 'undefined' ) return s;
-
-          // Support for limit
-          if ( limit === 0 ) limit = 1;
-
-          // Positive limit
-          if ( limit > 0 ){
-            if ( limit >= s.length ) return s;
-            return s.slice( 0, limit - 1 ).concat( [ s.slice( limit - 1 ).join( delimiter ) ] );
+          for (key in inputArr) {
+            if (inputArr.hasOwnProperty(key)) {
+              val = inputArr[key];
+              if (false === __array_search(val, tmp_arr2)) {
+                tmp_arr2[key] = val;
+              }
+            }
           }
 
-          // Negative limit
-          if ( -limit >= s.length ) return [];
-
-          s.splice( s.length + limit );
-          return s;
+          return tmp_arr2;
         }
 
         var importRecursive = function(filepath)
         {
             var src = grunt.file.read(filepath);
             var importReg = src.match(/@import ['"](.*)['"]/g);
-            
+
             if(importReg && importReg.length)
             {
+                importReg = array_unique(importReg);
+
                 for(var i in importReg)
                 {
                     var importpath = importReg[i].replace('@import ','').replace(/"/g,'').replace(/'/g,'');
@@ -69,14 +92,14 @@ module.exports = function(grunt) {
                     if(grunt.file.exists(importpath))
                     {
                         var isrc = importRecursive(importpath);
-                        src = explode(importReg[i]+';',src,2).join(isrc);
-                        src = explode(importReg[i],src,2).join(isrc);
+                        src = src.split(importReg[i]+';').join(isrc);
+                        src = src.split(importReg[i]).join(isrc);
                     }
                     else
                     {
                         grunt.log.warn('@import file "' + importpath + '" not found.');
-                        src = explode(importReg[i]+';',src,2).join('');
-                        src = explode(importReg[i],src,2).join('');
+                        src = src.split(importReg[i]+';').join('');
+                        src = src.split(importReg[i]).join('');
                     }
                 }
             }

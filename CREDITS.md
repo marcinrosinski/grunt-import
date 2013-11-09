@@ -1,5 +1,7 @@
 Credits
 =======
+Many thanks to:
+
 ####Core
 Grunt Team - https://github.com/gruntjs/grunt/graphs/contributors
 

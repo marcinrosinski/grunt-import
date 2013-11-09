@@ -134,6 +134,7 @@ grunt.event.on('import', function(action, filepath, target) {
 
 ## Release History
 
+ * 2013-11-09   v0.1.5   Regex fix for strings containing $
  * 2013-11-06   v0.1.4   Readme update
  * 2013-11-06   v0.1.3   Readme update
  * 2013-11-06   v0.1.2   Readme update

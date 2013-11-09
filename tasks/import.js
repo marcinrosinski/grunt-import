@@ -45,12 +45,14 @@ module.exports = function(grunt) {
                     if(grunt.file.exists(importpath))
                     {
                         var isrc = importRecursive(importpath);
-                        src = src.replace(importReg[i]+';',isrc).replace(importReg[i],isrc);
+                        src = src.split(importReg[i]+';').join(isrc);
+                        src = src.split(importReg[i]).join(isrc);
                     }
                     else
                     {
                         grunt.log.warn('@import file "' + importpath + '" not found.');
-                        src = src.replace(importReg[i]+';','').replace(importReg[i],'');
+                        src = src.split(importReg[i]+';').join('');
+                        src = src.split(importReg[i]).join('');
                     }
                 }
             }

@@ -67,6 +67,22 @@ grunt.initConfig({
 });
 ```
 
+In this example, running `grunt import:dist` will parse `build/foo.js` and write `dist/foo.js`, and parse `build/bar.js` and write `dist/bar.js`.
+
+```js
+// Project configuration.
+grunt.initConfig({
+  import: {
+    dist: {
+      files: {
+        'dist/foo.js': 'src/foo.js',
+        'dist/bar.js': 'src/bar.js',
+      }
+    }
+  }
+});
+```
+
 #### Running Importer with Uglify after import
 
 In this example, running `grunt watch:js` will parse `src/intro.js` file writing the output to `stage/intro.js` and followup with the Uglify task writing output into `dist/intro.js`

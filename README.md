@@ -137,6 +137,26 @@ grunt.initConfig({
 });
 ```
 
+### Running Importer on a directory
+
+In this example any .js file in ```src/``` will be parsed and outputted to ```dist/```
+
+```js
+// Project configuration.
+grunt.initConfig({
+  import: {
+    options: {},
+    dist: {
+      expand: true,
+      cwd: 'src/',
+      src: '*.js',
+      dest: 'dist/',
+      ext: '.js'
+    }
+  }
+});
+```
+
 #### Intercepting events
 
 You can listen to import events emitted by `grunt.import` using:

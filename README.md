@@ -1,4 +1,4 @@
-# grunt-import v0.1.6
+# grunt-import v0.1.7
 
 > Inline file importer with @import command.
 
@@ -170,6 +170,7 @@ grunt.event.on('import', function(action, filepath, target) {
 
 ## Release History
 
+ * 2014-01-25   v0.1.7   Comments support using /* */ or //
  * 2013-11-09   v0.1.6   Inclusion optimisation by introducing array_unqiue functions
  * 2013-11-09   v0.1.5   Regex fix for strings containing $
  * 2013-11-06   v0.1.4   Readme update

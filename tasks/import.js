@@ -8,6 +8,8 @@
 
 'use strict';
 
+String.prototype.__fullTrim=function(){return this.replace(/(?:(?:^|\n)\s+|\s+(?:$|\n))/g,'').replace(/\s+/g,' ');};
+
 module.exports = function(grunt) {
 
   grunt.registerMultiTask('import', '@import - inline file import.', function() {
@@ -59,10 +61,18 @@ module.exports = function(grunt) {
         var importRecursive = function(filepath)
         {
             var src = grunt.file.read(filepath);
-            var importReg = src.match(/@import ['"](.*)['"]/g);
+            //var importReg = src.match(/@import ['"](.*)['"]/g);
+            var importReg = src.match(/(?:(?![/*]])[^/* ]|^ *)@import ['"](.*?)['"](?![^*]*?\*\/)/gm);
 
             if(importReg && importReg.length)
             {
+                var importReg_ = new Array();
+                for(var i in importReg)
+                {
+                  importReg_[i] = importReg[i].__fullTrim();
+                }
+
+                importReg = importReg_;
                 importReg = array_unique(importReg);
 
                 for(var i in importReg)

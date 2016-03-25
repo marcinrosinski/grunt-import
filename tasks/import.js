@@ -20,7 +20,8 @@ module.exports = function(grunt) {
         var options = this.options({
           separator: grunt.util.linefeed,
           banner: '',
-          footer: ''
+          footer: '',
+          indent: false
         });
 
         // Process banner and footer.
@@ -58,47 +59,38 @@ module.exports = function(grunt) {
           return tmp_arr2;
         }
 
-        var importRecursive = function(filepath)
+        var importRecursive = function(filepath, prefix)
         {
             var src = grunt.file.read(filepath);
-            //var importReg = src.match(/@import ['"](.*)['"]/g);
-            var importReg = src.match(/(?:(?![/*]])[^/* ]|^ *)@import ['"](.*?)['"](?![^*]*?\*\/)/gm);
-
-            if(importReg && importReg.length)
-            {
-                var importReg_ = new Array();
-                for(var i in importReg)
-                {
-                  importReg_[i] = importReg[i].__fullTrim();
-                }
-
-                importReg = importReg_;
-                importReg = array_unique(importReg);
-
-                for(var i in importReg)
-                {
-                    var importpath = importReg[i].replace('@import ','').replace(/"/g,'').replace(/'/g,'');
-
-                    if(importpath.indexOf('/')!==0)
-                    {
-                        importpath = path.resolve(path.dirname(filepath)+'/'+importpath);
-                    }
-
-                    if(grunt.file.exists(importpath))
-                    {
-                        var isrc = importRecursive(importpath);
-                        src = src.split(importReg[i]+';').join(isrc);
-                        src = src.split(importReg[i]).join(isrc);
-                    }
-                    else
-                    {
-                        grunt.log.warn('@import file "' + importpath + '" not found.');
-                        src = src.split(importReg[i]+';').join('');
-                        src = src.split(importReg[i]).join('');
-                    }
-                }
-            }
+            var regexp = /((?![/*]])[^/* ]|^[ \t]*)@import ['"](.*?)['"](?![^*]*?\*\/)/gm;
+            var matches = [];
             
+            while (matches = regexp.exec(src)) {
+              var fullmatch = matches[0];
+              var importpath = matches[2];
+              var p = matches[1];
+              
+              if(importpath.indexOf('/')!==0)
+              {
+                  importpath = path.resolve(path.dirname(filepath)+'/'+importpath);
+              }
+
+              if(grunt.file.exists(importpath))
+              {
+                  var isrc = importRecursive(importpath, p);
+                  src = src.split(fullmatch+';').join(p + isrc);
+                  src = src.split(fullmatch).join(p + isrc);
+              }
+              else
+              {
+                  grunt.log.warn('@import file "' + importpath + '" not found.');
+                  src = src.split(fullmatch+';').join('');
+                  src = src.split(fullmatch).join('');
+              }
+            } 
+            if (options.indent && prefix != '') {
+              src = src.split(options.separator).join(options.separator + prefix);
+            }
             return src;
         };
 
@@ -118,7 +110,7 @@ module.exports = function(grunt) {
 
           }).map(function(filepath) {
 
-            return importRecursive(filepath);
+            return importRecursive(filepath, '');
 
           }).join(options.separator) + footer;
 

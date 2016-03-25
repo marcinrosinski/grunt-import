@@ -42,6 +42,14 @@ module.exports = function(grunt) {
         files: {
           'tmp/custom_options': 'test/fixtures/file2'
         }
+      },
+      custom_indent_options: {
+        options: {
+          indent: true
+        },
+        files: {
+          'tmp/custom_indent_options': 'test/fixtures/file3'
+        }
       }
     },
     // Unit tests.

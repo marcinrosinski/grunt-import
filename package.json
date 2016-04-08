@@ -1,7 +1,7 @@
 {
   "name": "grunt-import",
   "description": "Inline file importer with @import command.",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "homepage": "https://github.com/marcinrosinski/grunt-import",
   "author": {
     "name": "Marcin Rosinski",

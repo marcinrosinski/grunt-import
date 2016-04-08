@@ -1,3 +1,11 @@
+1.0.2:
+  date: 2016-04-08
+  changes:
+    - Added support for indent option
+1.0.1:
+  date: 2016-04-08
+  changes:
+    - Config fixes
 1.0.0:
   date: 2016-04-08
   changes:

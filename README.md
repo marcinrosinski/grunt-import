@@ -172,21 +172,3 @@ grunt.event.on('import', function(action, filepath, target) {
   //your code
 });
 ```
-
-
-## Release History
-
- * 2014-01-25   v0.1.7   Comments support using /* */ or //
- * 2013-11-09   v0.1.6   Inclusion optimisation by introducing array_unqiue functions
- * 2013-11-09   v0.1.5   Regex fix for strings containing $
- * 2013-11-06   v0.1.4   Readme update
- * 2013-11-06   v0.1.3   Readme update
- * 2013-11-06   v0.1.2   Readme update
- * 2013-11-06   v0.1.1   Readme update
- * 2013-11-06   v0.1.0   Initial Release
-
----
-
-Task submitted by [-Marcin Rosinski](http://twitter.com/marcinrosinski)
-
-*This file was generated on Wed Nov 06 2013 17:23:08.*

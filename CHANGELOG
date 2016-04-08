@@ -1,7 +1,11 @@
+1.0.0:
+  date: 2016-04-08
+  changes:
+    - Enabled higher grunt version dependency >=0.4.0
 v0.1.7:
   date: 2014-01-25
   changes:
-    - Adde support for commenting out - /* */ //
+    - Added support for commenting out - /* */ //
 v0.1.6:
   date: 2013-11-06
   changes:

@@ -25,5 +25,14 @@ exports.import = {
     test.equal(actual, expected, 'should utilize custom banner, footer and separator.');
 
     test.done();
+  },
+  custom_indent_options: function(test) {
+    test.expect(1);
+  
+    var actual = getNormalizedFile('tmp/custom_indent_options');
+    var expected = getNormalizedFile('test/expected/custom_indent_options');
+    test.equal(actual, expected, 'should indent imported content.');
+
+    test.done();
   }
 };

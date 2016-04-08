@@ -46,6 +46,12 @@ This string will be appended to the end of the output. It is processed using [gr
 
 _(Default processing options are explained in the [grunt.template.process][] documentation)_
 
+#### indent
+Type: `Boolean`
+Default: false
+
+If true, any whitespace preceding the @import statement will be preserved and the all of the imported content will be automatically indented. 
+
 ### Usage Examples
 
 **To include a file into another file add `@import "path/to/another/file";` at any point inside your importing/source file.**
